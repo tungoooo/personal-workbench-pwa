@@ -10,10 +10,11 @@
   "lang": "zh-CN",
   "categories": ["productivity", "finance", "health"],
   "icons": [
-    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "shortcuts": [
-    { "name": "快速记账", "short_name": "记一笔", "url": "./#quick-pay", "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }] },
-    { "name": "开始训练", "short_name": "训练", "url": "./#workout", "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }] }
+    { "name": "快速记账", "short_name": "记一笔", "url": "./#quick-pay", "icons": [{ "src": "app-icon-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "开始训练", "short_name": "训练", "url": "./#workout", "icons": [{ "src": "app-icon-192.png", "sizes": "192x192", "type": "image/png" }] }
   ]
 }

@@ -1,6 +1,6 @@
-const CACHE = "personal-workbench-v8";
+const CACHE = "personal-workbench-v9";
 const ROOT = new URL("./", self.registration.scope).href;
-const SHELL = [ROOT, new URL("manifest.webmanifest", ROOT).href, new URL("favicon.svg", ROOT).href, new URL("og.png", ROOT).href];
+const SHELL = [ROOT, new URL("manifest.webmanifest", ROOT).href, new URL("app-icon-192.png", ROOT).href, new URL("app-icon-512.png", ROOT).href, new URL("apple-touch-icon.png", ROOT).href, new URL("og.png", ROOT).href];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
