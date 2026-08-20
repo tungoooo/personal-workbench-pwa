@@ -1,0 +1,19 @@
+{
+  "name": "个人工作台",
+  "short_name": "工作台",
+  "description": "本地保存的记账、训练与待办工作台",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6fa",
+  "theme_color": "#19b977",
+  "lang": "zh-CN",
+  "categories": ["productivity", "finance", "health"],
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "快速记账", "short_name": "记一笔", "url": "./#quick-pay", "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }] },
+    { "name": "开始训练", "short_name": "训练", "url": "./#workout", "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }] }
+  ]
+}
