@@ -1,4 +1,4 @@
-const CACHE = "personal-workbench-v6";
+const CACHE = "personal-workbench-v7";
 const ROOT = new URL("./", self.registration.scope).href;
 const SHELL = [ROOT, new URL("manifest.webmanifest", ROOT).href, new URL("favicon.svg", ROOT).href, new URL("og.png", ROOT).href];
 
