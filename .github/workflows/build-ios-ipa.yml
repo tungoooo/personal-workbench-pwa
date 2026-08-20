@@ -2,6 +2,10 @@ name: Build iPhone IPA
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "personal-workbench-ios-source.zip"
+      - ".github/workflows/build-ios-ipa.yml"
 
 permissions:
   contents: write
