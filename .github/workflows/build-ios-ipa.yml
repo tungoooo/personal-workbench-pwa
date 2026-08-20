@@ -1,0 +1,73 @@
+name: Build iPhone IPA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Extract approved source bundle
+        run: |
+          mkdir source
+          unzip -q personal-workbench-ios-source.zip -d source
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: source/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm --dir source install --frozen-lockfile
+
+      - name: Sync iOS web assets and plugins
+        run: pnpm --dir source ios:sync
+
+      - name: Build unsigned iPhone app
+        run: |
+          xcodebuild \
+            -project source/ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/PersonalWorkbench.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+
+      - name: Package IPA for AltStore
+        run: |
+          mkdir -p build/Payload
+          cp -R build/PersonalWorkbench.xcarchive/Products/Applications/App.app build/Payload/PersonalWorkbench.app
+          cd build
+          zip -qry PersonalWorkbench.ipa Payload
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PersonalWorkbench-IPA
+          path: build/PersonalWorkbench.ipa
+
+      - name: Publish latest IPA release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view ios-latest >/dev/null 2>&1; then
+            gh release upload ios-latest build/PersonalWorkbench.ipa --clobber
+          else
+            gh release create ios-latest build/PersonalWorkbench.ipa \
+              --title "个人工作台 iPhone 安装包" \
+              --notes "使用 AltStore 安装。快捷指令链接格式：workbench://quick-pay?raw=编码后的付款文本"
+          fi
