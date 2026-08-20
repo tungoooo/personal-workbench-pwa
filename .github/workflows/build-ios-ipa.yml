@@ -35,7 +35,10 @@ jobs:
           cache-dependency-path: source/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm --dir source install --frozen-lockfile
+        run: |
+          pnpm --dir source install --frozen-lockfile || true
+          pnpm --dir source approve-builds esbuild sharp workerd
+          pnpm --dir source install --frozen-lockfile
 
       - name: Sync iOS web assets and plugins
         run: pnpm --dir source ios:sync
